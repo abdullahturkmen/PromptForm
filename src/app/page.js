@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const OpenAI = require('openai');
 export default function Home() {
 
+
   const openai = new OpenAI({
     apiKey: process.env.API_KEY, dangerouslyAllowBrowser: true
   });
@@ -69,8 +70,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col container mx-auto">
-      <div className="bg-white  mx-auto my-3 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-6/12">
-        <h1 className="text-3xl text-black">Web Form Oluşturucu - PromptForm</h1>
+      <div className="bg-white  mx-auto my-3 shadow-md rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 ">
+        <h1 className="text-xl lg:text-3xl text-black">Web Form Oluşturucu - PromptForm</h1>
         <textarea className="text-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="textInput" rows="4" cols="50" defaultValue={promptText} onChange={e => setPromptText(e.target.value)}></textarea>
 
 
