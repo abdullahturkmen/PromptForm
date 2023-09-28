@@ -38,7 +38,7 @@ export default function Home() {
       model: "gpt-3.5-turbo",
       messages: [{
         role: 'system',
-        content: 'Sen html olarak çıktı veren glassmorphism web form oluşturma aracısın, güzel bir lorem picsum img arkaplana sahip olsun, pastel renkler ve ayrıca sans-serif google font kullan, yumuşak geçişlere sahip olsun'
+        content: 'Sen html olarak çıktı veren glassmorphism stillendirmeli web form oluşturma aracısın, gradient arkaplana sahip olsun, pastel renkler ve ayrıca sans-serif google font kullan, yumuşak geçişlere sahip olsun. box-sizing: border-box özelliğini unutma'
       }, {
         role: "user",
         content: text
@@ -71,11 +71,18 @@ export default function Home() {
     toast("Kodlar kopyalandı!")
   };
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Enter tuşunun varsayılan davranışını engelle
+      getResponse(); // Mesaj gönderme fonksiyonunu çağır
+    }
+  };
+
   return (
     <div className="flex flex-col container mx-auto">
       <div className="bg-white  mx-auto my-3 shadow-md rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 ">
         <h1 className="text-xl lg:text-3xl text-black">Web Form Oluşturucu - PromptForm</h1>
-        <textarea className="text-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="textInput" rows="4" cols="50" defaultValue={promptText} onChange={e => setPromptText(e.target.value)}></textarea>
+        <textarea className="text-black shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="textInput" rows="4" cols="50" defaultValue={promptText} onChange={e => setPromptText(e.target.value)} placeholder="Birkaç kelime ile nasıl bir form ihtiyacınız olduğunu yazın..." onKeyPress={handleKeyPress}></textarea>
 
 
         {buttonLoading ? (<><button disabled className="text-white bg-gray-400  focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2  inline-flex items-center">
