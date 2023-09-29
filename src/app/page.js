@@ -82,12 +82,12 @@ export default function Home() {
   return (
     <>
 
-      <header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
+      <header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font shadow-lg">
         <div className="container flex flex-col items-center md:items-start justify-between p-6 mx-auto md:flex-row">
-          <a className="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-4 text-xl">
+          <a className="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-2 text-xl">
             &lt;prompt-form/&gt;
           </a>
-          <nav className="flex flex-wrap items-center justify-center  text-base md:ml-auto md:mr-auto md:mb-0 mb-4 ">
+          <nav className="flex flex-wrap items-center justify-center  text-base md:ml-auto md:mr-auto md:mb-0 mb-2 ">
             <a href="#_" className="mx-3 font-medium hover:text-gray-900">Home</a>
             <a href="#_" className="mx-3 font-medium hover:text-gray-900">About</a>
             <a href="#_" className="mx-3 font-medium hover:text-gray-900">Contact</a>
@@ -101,7 +101,7 @@ export default function Home() {
         </div>
       </header>
 
-      <div className="mb-28"></div>
+      <div className="mb-40 md:mb-28"></div>
       {responseList?.slice(0).reverse().map((response, index) => (
           <div className=" mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative">
             <div className="bg-white p-2 text-sm text-gray-500 bg-gray-100 w-full rounded-tr-lg rounded-tl-lg flex items-center justify-between shadow-md">
