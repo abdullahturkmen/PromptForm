@@ -17,6 +17,20 @@
 }
 
 body {
- 
-  background: #c15d5d;
+  background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 15px,
+      #ececec 15px,
+      #ececec 16px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 15px,
+      #ececec 15px,
+      #ececec 16px
+    ),
+    linear-gradient(45deg, white, white);
+    min-height: 100dvh;
 }
