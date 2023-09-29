@@ -1,7 +1,9 @@
+'use client';
 import React from 'react'
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 export default function Header() {
-
+	const pathname = usePathname();
 	return (
 		<>
 			<header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font shadow-lg">
@@ -12,13 +14,14 @@ export default function Header() {
 					<nav className="flex flex-wrap items-center justify-center  text-base md:ml-auto md:mr-auto md:mb-0 mb-2 ">
 						<Link
 							href="/"
-							className="mx-3 font-medium hover:text-gray-900"
+							className={`mx-2 px-2 py-1 rounded-lg font-medium hover:text-gray-900 ${pathname == "/" ? "bg-gray-100" : ""}`}
+
 						>
 							Oluştur
 						</Link>
 						<Link
 							href="/LibraryScreen"
-							className="mx-3 font-medium hover:text-gray-900"
+							className={`mx-2 px-2 py-1 rounded-lg font-medium hover:text-gray-900 ${pathname == "/LibraryScreen" ? "bg-gray-100" : ""}`}
 						>
 							Kütüphane
 						</Link>

@@ -16,7 +16,7 @@ export default function HomeScreen() {
 
   const [promptText, setPromptText] = useState('')
   const [buttonLoading, setButtonLoading] = useState(false)
-  const [responseList, setResponseList] = useState(localStorage?.promptFormList ? JSON.parse(localStorage.promptFormList) : []);
+  const [responseList, setResponseList] = useState(localStorage.getItem('promptFormList') ? JSON.parse(localStorage.getItem('promptFormList')) : []);
   const [confettiVisible, setConfettiVisible] = useState(false);
 
   useEffect(() => {
@@ -85,9 +85,9 @@ export default function HomeScreen() {
   return (
     <>
 
-      <div className="mb-40 md:mb-28"></div>
+      
       {responseList?.slice(0).reverse().map((response, index) => (
-        <div className=" mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative">
+        <div className=" mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative" key={index}>
           <div className="bg-white p-2 text-sm text-gray-500 bg-gray-100 w-full rounded-tr-lg rounded-tl-lg flex items-center justify-between shadow-lg">
             <div className="truncate">{response.prompt}
               <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY hh:mm')}</div>
