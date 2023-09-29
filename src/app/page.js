@@ -82,19 +82,19 @@ export default function Home() {
   return (
     <>
 
-      <header class="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
-        <div class="container flex flex-col items-center md:items-start justify-between p-6 mx-auto md:flex-row">
-          <a class="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-4 text-xl">
+      <header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font">
+        <div className="container flex flex-col items-center md:items-start justify-between p-6 mx-auto md:flex-row">
+          <a className="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-4 text-xl">
             &lt;prompt-form/&gt;
           </a>
-          <nav class="flex flex-wrap items-center justify-center  text-base md:ml-auto md:mr-auto md:mb-0 mb-4 ">
-            <a href="#_" class="mx-3 font-medium hover:text-gray-900">Home</a>
-            <a href="#_" class="mx-3 font-medium hover:text-gray-900">About</a>
-            <a href="#_" class="mx-3 font-medium hover:text-gray-900">Contact</a>
+          <nav className="flex flex-wrap items-center justify-center  text-base md:ml-auto md:mr-auto md:mb-0 mb-4 ">
+            <a href="#_" className="mx-3 font-medium hover:text-gray-900">Home</a>
+            <a href="#_" className="mx-3 font-medium hover:text-gray-900">About</a>
+            <a href="#_" className="mx-3 font-medium hover:text-gray-900">Contact</a>
           </nav>
-          <div class="items-center h-full">
+          <div className="items-center h-full">
             <a href="#_"
-              class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded-lg shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
+              className="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded-lg shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
               Share
             </a>
           </div>
@@ -123,15 +123,15 @@ export default function Home() {
 
       <div className="w-full fixed bottom-0 left-0 z-50">
         <div className="bg-white  mx-auto my-3 shadow-md rounded-lg  mb-4  border-2 w-11/12 lg:w-6/12 max-w-[600px]">
-          <div class="flex items-center justify-center p-5 ">
-            <div class="w-full rounded-lg bg-gray-200 border-2">
-              <div class="flex">
-                <div class="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-white p-5">
-                  <svg viewBox="0 0 20 20" aria-hidden="true" class="pointer-events-none absolute w-5 fill-gray-500 transition">
+          <div className="flex items-center justify-center p-5 ">
+            <div className="w-full rounded-lg bg-gray-200 border-2">
+              <div className="flex">
+                <div className="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-white p-5">
+                  <svg viewBox="0 0 20 20" aria-hidden="true" className="pointer-events-none absolute w-5 fill-gray-500 transition">
                     <path d="M16.72 17.78a.75.75 0 1 0 1.06-1.06l-1.06 1.06ZM9 14.5A5.5 5.5 0 0 1 3.5 9H2a7 7 0 0 0 7 7v-1.5ZM3.5 9A5.5 5.5 0 0 1 9 3.5V2a7 7 0 0 0-7 7h1.5ZM9 3.5A5.5 5.5 0 0 1 14.5 9H16a7 7 0 0 0-7-7v1.5Zm3.89 10.45 3.83 3.83 1.06-1.06-3.83-3.83-1.06 1.06ZM14.5 9a5.48 5.48 0 0 1-1.61 3.89l1.06 1.06A6.98 6.98 0 0 0 16 9h-1.5Zm-1.61 3.89A5.48 5.48 0 0 1 9 14.5V16a6.98 6.98 0 0 0 4.95-2.05l-1.06-1.06Z"></path>
                   </svg>
                 </div>
-                <input type="text" class="w-full bg-white pl-2 font-medium text-sm outline-0" placeholder="Birkaç kelime ile nasıl bir form ihtiyacınız olduğunu yazın..." onKeyPress={handleKeyPress} defaultValue={promptText} onChange={e => setPromptText(e.target.value)} disabled={buttonLoading} />
+                <input type="text" className="w-full bg-white pl-2 font-medium text-sm outline-0" placeholder="Birkaç kelime ile nasıl bir form ihtiyacınız olduğunu yazın..." onKeyPress={handleKeyPress} defaultValue={promptText} onChange={e => setPromptText(e.target.value)} disabled={buttonLoading} />
 
                 <button disabled={promptText.length == 0} className={`rounded-tr-lg rounded-br-lg ${promptText.length > 0 ? 'text-gray-500' : ' text-gray-300'}  bg-white  font-bold py-2 px-4  focus:outline-none focus:shadow-outline`} type="button" onClick={() => getResponse()}>
                   {buttonLoading ? (<>
