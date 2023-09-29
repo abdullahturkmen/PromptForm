@@ -16,8 +16,15 @@ export default function HomeScreen() {
 
   const [promptText, setPromptText] = useState('')
   const [buttonLoading, setButtonLoading] = useState(false)
-  const [responseList, setResponseList] = useState(localStorage.getItem('promptFormList') ? JSON.parse(localStorage.getItem('promptFormList')) : []);
+  const [responseList, setResponseList] = useState([]);
   const [confettiVisible, setConfettiVisible] = useState(false);
+
+  useEffect(() => {
+    const storedArray = JSON.parse(localStorage.getItem('promptFormList'));
+    if (storedArray) {
+      setResponseList(storedArray);
+    }
+  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -85,7 +92,7 @@ export default function HomeScreen() {
   return (
     <>
 
-      
+
       {responseList?.slice(0).reverse().map((response, index) => (
         <div className=" mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative" key={index}>
           <div className="bg-white p-2 text-sm text-gray-500 bg-gray-100 w-full rounded-tr-lg rounded-tl-lg flex items-center justify-between shadow-lg">
