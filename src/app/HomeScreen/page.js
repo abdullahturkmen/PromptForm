@@ -32,11 +32,6 @@ export default function HomeScreen() {
     }, 2000)
   }, [confettiVisible])
 
-  useEffect(() => {
-    localStorage.setItem("promptFormList", JSON.stringify(responseList));
-  }, [responseList])
-
-
 
   const getResponse = async () => {
     setButtonLoading(true)
@@ -55,7 +50,15 @@ export default function HomeScreen() {
       }],
     });
 
-    setResponseList(current => [...current, { prompt: promptText, data: removeText(response.choices[0].message.content), createDate: new Date() }])
+    const newData = { prompt: promptText, data: removeText(response.choices[0].message.content), createDate: new Date() }
+
+    const storedArray = JSON.parse(localStorage.getItem('promptFormList'));
+    if (storedArray) {
+      storedArray.push(newData)
+      localStorage.setItem("promptFormList", JSON.stringify(storedArray));
+    }
+
+    setResponseList(current => [...current, newData])
 
 
     setButtonLoading(false)
