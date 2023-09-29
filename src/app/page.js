@@ -94,7 +94,7 @@ export default function Home() {
           </nav>
           <div class="items-center h-full">
             <a href="#_"
-              class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
+              class="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded-lg shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
               Share
             </a>
           </div>
