@@ -110,9 +110,9 @@ export default function HomeScreen() {
 
 
       <div className="w-full fixed bottom-0 left-0 z-50">
-        <div className="bg-white  mx-auto my-3 shadow-md rounded-lg  mb-4  border-2 w-11/12 lg:w-6/12 max-w-[600px]">
+        <div className="bg-white  mx-auto my-3 shadow-md rounded-lg  mb-4  border w-11/12 lg:w-6/12 max-w-[600px]">
           <div className="flex items-center justify-center p-5 ">
-            <div className="w-full rounded-lg bg-gray-200 border-2">
+            <div className="w-full rounded-lg bg-gray-200 border">
               <div className="flex">
                 <div className="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-white p-5">
                   <svg viewBox="0 0 20 20" aria-hidden="true" className="pointer-events-none absolute w-5 fill-gray-500 transition">

@@ -6,8 +6,8 @@ export default function Header() {
 	const pathname = usePathname();
 	return (
 		<>
-			<header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font shadow-lg">
-				<div className="container flex flex-col items-center md:items-start justify-between p-6 mx-auto md:flex-row">
+			<header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font shadow-md">
+				<div className="w-full flex flex-col items-center md:items-start justify-between p-6 mx-auto md:flex-row  shadow-md">
 					<a className="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-2 text-xl">
 						&lt;prompt-form /&gt;
 					</a>
