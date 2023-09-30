@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import moment from "moment";
 import FireworksConfetti from "../components/confetti";
 import { ToastContainer, toast } from 'react-toastify';
@@ -18,6 +18,28 @@ export default function HomeScreen() {
   const [buttonLoading, setButtonLoading] = useState(false)
   const [responseList, setResponseList] = useState([]);
   const [confettiVisible, setConfettiVisible] = useState(false);
+  const [inputFocusVisible, setInputFocusVisible] = useState(false);
+  const inputContent = useRef(null);
+  useOutsideAlerter(inputContent);
+
+  function useOutsideAlerter(ref) {
+    useEffect(() => {
+      /**
+       * Alert if clicked on outside of element
+       */
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          setInputFocusVisible(false)
+        }
+      }
+      // Bind the event listener
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        // Unbind the event listener on clean up
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
 
   useEffect(() => {
     const storedArray = JSON.parse(localStorage.getItem('promptFormList'));
@@ -88,6 +110,9 @@ export default function HomeScreen() {
     }
   };
 
+
+
+
   return (
     <>
 
@@ -110,18 +135,28 @@ export default function HomeScreen() {
 
 
       <div className="w-full fixed bottom-0 left-0 z-50">
-        <div className="bg-white  mx-auto my-3 shadow-md rounded-lg  mb-4  border w-11/12 lg:w-6/12 max-w-[600px]">
-          <div className="flex items-center justify-center p-5 ">
+        <div onFocus={() => setInputFocusVisible(false)} className=" bg-white  mx-auto my-3 shadow-md rounded-lg  mb-4  border w-11/12 lg:w-6/12 max-w-[600px]">
+          <div className="flex items-center justify-center p-5 " ref={inputContent}>
             <div className="w-full rounded-lg bg-gray-200 border">
+
+
+              {inputFocusVisible && (<>
+
+                <div className="bg-white border-b rounded-tl-lg rounded-tr-lg p-3">
+                  buraya radio buttonlar gelecek
+                </div>
+
+              </>)}
+
               <div className="flex">
-                <div className="flex w-10 items-center justify-center rounded-tl-lg rounded-bl-lg border-r border-gray-200 bg-white p-5">
+                <div className={`flex w-10 items-center justify-center  border-r border-gray-200 bg-white p-5 rounded-bl-lg ${inputFocusVisible ? '' : 'rounded-tl-lg'}`}>
                   <svg viewBox="0 0 20 20" aria-hidden="true" className="pointer-events-none absolute w-5 fill-gray-500 transition">
                     <path d="M16.72 17.78a.75.75 0 1 0 1.06-1.06l-1.06 1.06ZM9 14.5A5.5 5.5 0 0 1 3.5 9H2a7 7 0 0 0 7 7v-1.5ZM3.5 9A5.5 5.5 0 0 1 9 3.5V2a7 7 0 0 0-7 7h1.5ZM9 3.5A5.5 5.5 0 0 1 14.5 9H16a7 7 0 0 0-7-7v1.5Zm3.89 10.45 3.83 3.83 1.06-1.06-3.83-3.83-1.06 1.06ZM14.5 9a5.48 5.48 0 0 1-1.61 3.89l1.06 1.06A6.98 6.98 0 0 0 16 9h-1.5Zm-1.61 3.89A5.48 5.48 0 0 1 9 14.5V16a6.98 6.98 0 0 0 4.95-2.05l-1.06-1.06Z"></path>
                   </svg>
                 </div>
                 <input type="text" className="w-full bg-white pl-2 font-medium text-sm outline-0" placeholder="Birkaç kelime ile nasıl bir form ihtiyacınız olduğunu yazın..." onKeyPress={handleKeyPress} defaultValue={promptText} onChange={e => setPromptText(e.target.value)} disabled={buttonLoading} />
 
-                <button disabled={promptText.length == 0} className={`rounded-tr-lg rounded-br-lg ${promptText.length > 0 ? 'text-gray-500' : ' text-gray-300'}  bg-white  font-bold py-2 px-4  focus:outline-none focus:shadow-outline`} type="button" onClick={() => getResponse()}>
+                <button disabled={promptText.length == 0} className={`${inputFocusVisible ? '' : 'rounded-tr-lg'} rounded-br-lg ${promptText.length > 0 ? 'text-gray-500' : ' text-gray-300'}  bg-white  font-bold py-2 px-4  focus:outline-none focus:shadow-outline`} type="button" onClick={() => getResponse()}>
                   {buttonLoading ? (<>
                     <svg aria-hidden="true" role="status" className="inline w-4 h-4  text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
