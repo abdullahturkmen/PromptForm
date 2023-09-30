@@ -51,15 +51,11 @@ export default function HomeScreen() {
     });
 
     const newData = { prompt: promptText, data: removeText(response.choices[0].message.content), createDate: new Date() }
-
-    const storedArray = JSON.parse(localStorage.getItem('promptFormList'));
-    if (storedArray) {
-      storedArray.push(newData)
-      localStorage.setItem("promptFormList", JSON.stringify(storedArray));
-    }
+    const storedArray = JSON.parse(localStorage.getItem('promptFormList')) || [];
+    storedArray.push(newData)
+    localStorage.setItem("promptFormList", JSON.stringify(storedArray));
 
     setResponseList(current => [...current, newData])
-
 
     setButtonLoading(false)
     setConfettiVisible(true)
@@ -82,7 +78,7 @@ export default function HomeScreen() {
     el.select();
     document.execCommand('copy');
     document.body.removeChild(el);
-    toast("Kodlar kopyalandı!")
+    toast.success("Kodlar kopyalandı!")
   };
 
   const handleKeyPress = (e) => {
@@ -97,12 +93,12 @@ export default function HomeScreen() {
 
 
       {responseList?.slice(0).reverse().map((response, index) => (
-        <div className=" mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative" key={index}>
+        <div className="sticky top-36 md:top-16 mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative" key={index}>
           <div className="bg-white p-2 text-sm text-gray-500 bg-gray-100 w-full rounded-tr-lg rounded-tl-lg flex items-center justify-between shadow-lg">
             <div className="truncate">{response.prompt}
               <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY hh:mm')}</div>
             </div>
-            <button title="Kodları Kopyala" className="bg-gray-200 hover:bg-gray-300 text-gray-400 p-1 rounded-lg focus:outline-none focus:shadow-outline" onClick={(e) => copyHTML(index)}>
+            <button title="Kodları Kopyala" className="bg-gray-200 hover:bg-gray-300 text-gray-400 p-1 rounded-lg focus:ring focus:ring-violet-300 focus:shadow-md" onClick={(e) => copyHTML(index)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M216 34H88a6 6 0 0 0-6 6v42H40a6 6 0 0 0-6 6v128a6 6 0 0 0 6 6h128a6 6 0 0 0 6-6v-42h42a6 6 0 0 0 6-6V40a6 6 0 0 0-6-6Zm-54 176H46V94h116Zm48-48h-36V88a6 6 0 0 0-6-6H94V46h116Z" /></svg>
             </button>
           </div>

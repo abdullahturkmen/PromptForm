@@ -32,4 +32,5 @@ body {
       #ececec 16px
     ),
     linear-gradient(45deg, white, white);
+  background-attachment: fixed;
 }

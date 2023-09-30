@@ -9,8 +9,8 @@ export default function LibraryScreen() {
   return (
     <>
       <div className="flex  w-full flex-wrap content-center justify-center p-5 ">
-        <div className="grid grid-cols-3 gap-3">
-          <div className="w-80 bg-white p-3 shadow-lg rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          <div className="w-auto bg-white p-3 shadow-lg rounded-lg">
             <img className="h-52 w-full object-cover" src="https://i.imgur.com/5yeBVeM.jpeg" />
             <ul className="mt-3 flex flex-wrap">
               <li className="mr-auto">
@@ -48,7 +48,7 @@ export default function LibraryScreen() {
             </ul>
           </div>
 
-          <div className="w-80 bg-white p-3 shadow-lg rounded-lg">
+          <div className="w-auto bg-white p-3 shadow-lg rounded-lg">
             <img className="h-52 w-full object-cover" src="https://i.imgur.com/fjXFX93.jpeg" />
             <ul className="mt-3 flex flex-wrap">
               <li className="mr-auto">
@@ -86,7 +86,7 @@ export default function LibraryScreen() {
             </ul>
           </div>
 
-          <div className="w-80 bg-white p-3 shadow-lg rounded-lg">
+          <div className="w-auto bg-white p-3 shadow-lg rounded-lg">
             <img className="h-52 w-full object-cover" src="https://i.imgur.com/ISpNf4j.jpeg" />
             <ul className="mt-3 flex flex-wrap">
               <li className="mr-auto">
@@ -124,7 +124,7 @@ export default function LibraryScreen() {
             </ul>
           </div>
 
-          <div className="w-80 bg-white p-3 shadow-lg rounded-lg">
+          <div className="w-auto bg-white p-3 shadow-lg rounded-lg">
             <img className="h-52 w-full object-cover" src="https://i.imgur.com/DBpznrn.jpeg" />
             <ul className="mt-3 flex flex-wrap">
               <li className="mr-auto">
