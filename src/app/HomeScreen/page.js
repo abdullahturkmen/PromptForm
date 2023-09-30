@@ -119,15 +119,35 @@ export default function HomeScreen() {
 
       {responseList?.slice(0).reverse().map((response, index) => (
         <div className="sticky top-36 md:top-16 mx-auto my-3 rounded px-3 lg:px-8 pt-6 pb-8 mb-4 w-11/12 lg:w-6/12 relative" key={index}>
-          <div className="bg-white p-2 text-sm text-gray-500 bg-gray-100 w-full rounded-tr-lg rounded-tl-lg flex items-center justify-between shadow-lg">
+          <div className="bg-white p-2 text-sm text-gray-500 bg-gray-100 w-full rounded-tr-lg rounded-tl-lg flex items-center justify-between border border-b-0">
             <div className="truncate">{response.prompt}
               <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY hh:mm')}</div>
             </div>
-            <button title="Kodları Kopyala" className="bg-gray-200 hover:bg-gray-300 text-gray-400 p-1 rounded-lg focus:ring focus:ring-violet-300 focus:shadow-md" onClick={(e) => copyHTML(index)}>
+
+          </div>
+
+
+          <div className="w-full relative overflow-hidden aspect-video rounded-br-lg rounded-bl-lg" >
+            <button title="Kodları Kopyala" className="z-10 absolute top-2 right-2 bg-gray-100 hover:bg-gray-200 text-gray-500 p-1 rounded-lg focus:ring focus:ring-violet-300 focus:shadow-md" onClick={(e) => copyHTML(index)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"><path fill="currentColor" d="M216 34H88a6 6 0 0 0-6 6v42H40a6 6 0 0 0-6 6v128a6 6 0 0 0 6 6h128a6 6 0 0 0 6-6v-42h42a6 6 0 0 0 6-6V40a6 6 0 0 0-6-6Zm-54 176H46V94h116Zm48-48h-36V88a6 6 0 0 0-6-6H94V46h116Z" /></svg>
             </button>
+            <iframe
+              className="absolute bg-white  w-full border-0 shadow-md"
+              style={{
+                width: 'calc(200% + 5px)',
+                height: 'calc(200% + 5px)',
+                top: '-2px',
+                left: "-2px",
+                transform: "scale(.5)",
+                transformOrigin: "top left",
+              }}
+
+              sandbox="allow-forms allow-modals allow-pointer-lock allow-same-origin allow-scripts allow-presentation"
+              frameborder="0" loading="lazy" scrolling="no" srcDoc={response.data} tabIndex="-1"
+              title={response.prompt}></iframe>
+
+
           </div>
-          <iframe className="bg-white rounded-br-lg rounded-bl-lg w-full border-0 shadow-md" srcDoc={response.data} style={{ height: '500px' }} />
         </div>
       ))}
       <div className="mb-28"></div>
