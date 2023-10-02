@@ -340,10 +340,10 @@ p:first-of-type {
 .form-container input[type="text"],
 .form-container input[type="password"] {
   padding: 8px;
-  border: none;
+  border: 1px solid #eaeaea;
   border-radius: 5px;
   outline: none;
-  background: #f4f4f4;
+  background: #f4f4f47a;
 }
 
 .form-container .submit-btn {

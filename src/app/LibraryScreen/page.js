@@ -10,6 +10,9 @@ export default function LibraryScreen() {
   const [libraryList, setLibraryList] = useState([]);
   const [selectItemData, setSelectItemData] = useState(null);
   const [inputFocusVisible, setInputFocusVisible] = useState(false);
+  const [currentPageNum, setCurrentPageNum] = useState(1);
+  const [totalPageNum, setTotalPageNum] = useState(0);
+  const [pageNumbers, setPageNumbers] = useState([]);
   const modalContent = useRef(null);
   useOutsideAlerter(modalContent);
 
@@ -51,6 +54,30 @@ export default function LibraryScreen() {
     toast.success("Kodlar kopyalandı!")
   };
 
+  useEffect(() => {
+    setTotalPageNum(Math.ceil(libraryList.length / 12))
+  }, [libraryList])
+
+  useEffect(() => {
+    const pageArr = Array.from({ length: totalPageNum }, (_, index) => index + 1);
+    setPageNumbers(pageArr)
+  }, [totalPageNum])
+
+
+
+  const prevPage = () => {
+    setCurrentPageNum(currentPageNum - 1)
+  }
+
+  const nextPage = () => {
+    setCurrentPageNum(currentPageNum + 1)
+  }
+
+  const onPageChange = (num) => {
+    setCurrentPageNum(num)
+  }
+
+
   return (
     <>
       <div className="flex flex-col w-full flex-wrap content-center justify-center p-5 ">
@@ -58,8 +85,8 @@ export default function LibraryScreen() {
 
 
           {libraryList?.slice(0).reverse().map((response, index) => (
-            <div className="w-auto bg-white p-3 shadow-lg hover:shadow-xl rounded-xl" onClick={() => setSelectItemData(response)} key={index}>
-              <div className="w-full relative overflow-hidden aspect-video rounded-lg hover:shadow" >
+            <div className="w-auto bg-white p-3 shadow-lg hover:shadow-xl rounded-xl cursor-pointer" onClick={() => setSelectItemData(response)} key={index}>
+              <div className="w-full relative overflow-hidden aspect-video rounded-lg" >
                 <iframe
                   className="absolute border-0 pointer-events-none"
                   style={{
@@ -116,43 +143,42 @@ export default function LibraryScreen() {
 
         </div>
         <div className="mb-14"></div>
-        <div className="max-w-2xl mx-auto">
+        {totalPageNum > 1 && (<>
 
-          <nav>
-            <ul className="inline-flex -space-x-px">
-              <li>
-                <a href="#"
-                  className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3">Önceki</a>
-              </li>
-              <li>
-                <a href="#"
-                  className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3">1</a>
-              </li>
-              <li>
-                <a href="#"
-                  className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3">2</a>
-              </li>
-              <li>
-                <a href="#" aria-current="page"
-                  className="bg-blue-50 border border-gray-300 text-blue-600 hover:bg-blue-100 hover:text-blue-700  py-2 px-3 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-              </li>
-              <li>
-                <a href="#"
-                  className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3">4</a>
-              </li>
-              <li>
-                <a href="#"
-                  className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3">5</a>
-              </li>
-              <li>
-                <a href="#"
-                  className="bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3">Sonraki</a>
-              </li>
-            </ul>
-          </nav>
+          <div className="max-w-2xl mx-auto">
+            <nav>
+              <ul className="inline-flex -space-x-px">
+
+                {currentPageNum > 1 && (<>
+                  <li>
+                    <a onClick={prevPage}
+                      className="cursor-pointer bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3">Önceki</a>
+                  </li>
+                </>)}
+                {pageNumbers.map(number => (
+                  <li
+                    key={number}
+                    onClick={() => onPageChange(number)}
+                  >
+                    <a
+                      className={`cursor-pointer bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 ${number === currentPageNum ? ' dark:bg-gray-700 dark:text-white' : ''}`}>{number}</a>
+
+                  </li>
+                ))}
+                {currentPageNum < totalPageNum && (<>
+                  <li>
+                    <a onClick={nextPage}
+                      className="cursor-pointer bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3">Sonraki</a>
+                  </li>
+                </>)}
+
+              </ul>
+            </nav>
 
 
-        </div>
+          </div>
+        </>)}
+
       </div>
 
 
