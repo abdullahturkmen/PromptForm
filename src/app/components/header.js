@@ -8,16 +8,16 @@ export default function Header() {
 		<>
 			<header className="w-full fixed top-0 z-50 text-gray-700 bg-white border-t border-gray-100 shadow-sm body-font shadow-md">
 				<div className="w-full flex flex-col items-center md:items-start justify-between p-6 mx-auto md:flex-row  shadow-md">
-					<a className="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-2 text-xl">
+					<Link href="/" className="flex items-center font-medium text-gray-900 title-font md:mb-0 mb-2 text-xl">
 						&lt;prompt-form /&gt;
-					</a>
+					</Link>
 					<nav className="flex flex-wrap items-center justify-center  text-base md:ml-auto md:mr-auto md:mb-0 mb-2 ">
 						<Link
 							href="/"
 							className={`mx-2 px-2 py-1 rounded-lg font-medium hover:text-gray-900 ${pathname == "/" ? "bg-gray-100" : ""}`}
 
 						>
-							Oluştur
+							Anasayfa
 						</Link>
 						<Link
 							href="/LibraryScreen"
@@ -27,10 +27,10 @@ export default function Header() {
 						</Link>
 					</nav>
 					<div className="items-center h-full">
-						<a href="#_"
+						<Link href="/CreateFormScreen"
 							className="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded-lg shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
-							Share
-						</a>
+							Oluştur
+						</Link>
 					</div>
 				</div>
 			</header>
