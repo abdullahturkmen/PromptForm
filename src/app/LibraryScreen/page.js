@@ -47,6 +47,8 @@ export default function LibraryScreen() {
     const el = document.createElement('textarea');
 
     el.value = data;
+    el.value = el.value.split("<body>").join("<body> <!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır -->")
+    el.value = el.value.split("</body>").join("<!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır --> </body>")
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');

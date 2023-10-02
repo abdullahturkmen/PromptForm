@@ -28,10 +28,10 @@ export default function HomeScreen() {
                   <div className="form-container">
                     <form>
                       <label for="name">Kullanıcı Adı:</label>
-                      <input type="text" id="name" name="name" placeholder="Kullanıcı Adı Girin" readonly autoComplete="off" />
+                      <input type="text" id="name" name="name" placeholder="Kullanıcı Adı Girin" readOnly autoComplete="off" />
 
                       <label for="email">Parola:</label>
-                      <input type="password" id="email" name="email" placeholder="************" readonly autoComplete="off" />
+                      <input type="password" id="email" name="email" placeholder="************" readOnly autoComplete="off" />
 
                       <input value="Gönder" className="submit-btn" disabled/>
                     </form>

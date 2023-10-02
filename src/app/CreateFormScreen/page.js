@@ -97,6 +97,8 @@ export default function CreateFormScreen() {
     const el = document.createElement('textarea');
 
     el.value = responseList[index].data;
+    el.value = el.value.split("<body>").join("<body> <!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır -->")
+    el.value = el.value.split("</body>").join("<!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır --> </body>")
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
@@ -156,8 +158,8 @@ export default function CreateFormScreen() {
 
 
       <div className="w-full fixed bottom-0 left-0 z-50">
-        <div onFocus={() => setInputFocusVisible(false)} className=" bg-white  mx-auto my-3 shadow-md rounded-lg  mb-4  border w-11/12 lg:w-6/12 max-w-[600px]">
-          <div className="flex items-center justify-center p-5 " ref={inputContent}>
+        <div onFocus={() => setInputFocusVisible(false)} className=" bg-white  mx-auto shadow-md rounded-lg mb-0 md:mb-4 border w-[100%] md:w-11/12 lg:w-6/12 max-w-[600px]">
+          <div className="flex items-center justify-center p-2 md:p-5 " ref={inputContent}>
             <div className="w-full rounded-lg bg-gray-200 border">
 
 
@@ -170,12 +172,12 @@ export default function CreateFormScreen() {
               </>)}
 
               <div className="flex">
-                <div className={`flex w-10 items-center justify-center  border-r border-gray-200 bg-white p-5 rounded-bl-lg ${inputFocusVisible ? '' : 'rounded-tl-lg'}`}>
+                <div className={`hidden md:flex w-10 items-center justify-center  border-r border-gray-200 bg-white p-5 rounded-bl-lg ${inputFocusVisible ? '' : 'rounded-tl-lg'}`}>
                   <svg viewBox="0 0 20 20" aria-hidden="true" className="pointer-events-none absolute w-5 fill-gray-500 transition">
                     <path d="M16.72 17.78a.75.75 0 1 0 1.06-1.06l-1.06 1.06ZM9 14.5A5.5 5.5 0 0 1 3.5 9H2a7 7 0 0 0 7 7v-1.5ZM3.5 9A5.5 5.5 0 0 1 9 3.5V2a7 7 0 0 0-7 7h1.5ZM9 3.5A5.5 5.5 0 0 1 14.5 9H16a7 7 0 0 0-7-7v1.5Zm3.89 10.45 3.83 3.83 1.06-1.06-3.83-3.83-1.06 1.06ZM14.5 9a5.48 5.48 0 0 1-1.61 3.89l1.06 1.06A6.98 6.98 0 0 0 16 9h-1.5Zm-1.61 3.89A5.48 5.48 0 0 1 9 14.5V16a6.98 6.98 0 0 0 4.95-2.05l-1.06-1.06Z"></path>
                   </svg>
                 </div>
-                <input type="text" className="w-full bg-white pl-2 font-medium text-sm outline-0" placeholder="Birkaç kelime ile nasıl bir form ihtiyacınız olduğunu yazın..." onKeyPress={handleKeyPress} defaultValue={promptText} onChange={e => setPromptText(e.target.value)} disabled={buttonLoading} />
+                <input type="text" className="rounded-tl-lg rounded-bl-lg md:rounded-none w-full bg-white pl-2 font-medium text-sm outline-0" placeholder="Birkaç kelime ile nasıl bir form ihtiyacınız olduğunu yazın..." onKeyPress={handleKeyPress} defaultValue={promptText} onChange={e => setPromptText(e.target.value)} disabled={buttonLoading} />
 
                 <button disabled={promptText.length == 0} className={`${inputFocusVisible ? '' : 'rounded-tr-lg'} rounded-br-lg ${promptText.length > 0 ? 'text-gray-500' : ' text-gray-300'}  bg-white  font-bold py-2 px-4  focus:outline-none focus:shadow-outline`} type="button" onClick={() => getResponse()}>
                   {buttonLoading ? (<>
