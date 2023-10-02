@@ -3,8 +3,9 @@
 import React, { useEffect, useState, useRef } from "react"
 import moment from "moment";
 import FireworksConfetti from "../components/confetti";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+
+
 const OpenAI = require('openai');
 export default function CreateFormScreen() {
 
@@ -143,7 +144,7 @@ export default function CreateFormScreen() {
               }}
 
               sandbox="allow-forms allow-modals allow-pointer-lock allow-same-origin allow-scripts allow-presentation"
-              frameborder="0" loading="lazy" scrolling="no" srcDoc={response.data} tabIndex="-1"
+              frameBorder="0" loading="lazy" scrolling="no" srcDoc={response.data} tabIndex="-1"
               title={response.prompt}></iframe>
 
 
@@ -195,7 +196,7 @@ export default function CreateFormScreen() {
       {confettiVisible && (
         <FireworksConfetti />
       )}
-      <ToastContainer />
+    
     </>
   )
 }

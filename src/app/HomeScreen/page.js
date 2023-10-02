@@ -25,7 +25,7 @@ export default function HomeScreen() {
 
 
 
-                  <div class="form-container">
+                  <div className="form-container">
                     <form>
                       <label for="name">Kullanıcı Adı:</label>
                       <input type="text" id="name" name="name" placeholder="Kullanıcı Adı Girin" readonly autoComplete="off" />

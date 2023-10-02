@@ -1,5 +1,7 @@
 import './globals.css'
 import './stack.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import { Inter } from 'next/font/google'
 import Header from './components/header'
 
@@ -17,6 +19,8 @@ export default function RootLayout({ children }) {
         <Header />
         <div className="mb-40 md:mb-28"></div>
         {children}
+      <ToastContainer />
+
       </body>
     </html>
   )
