@@ -3,16 +3,26 @@
 import React, { useEffect, useState, useRef } from "react"
 import { toast } from 'react-toastify';
 import moment from "moment";
+import Link from "next/link";
+import {
+  db,
+  collection,
+  getDocs,
+  query,
+  limit,
+  where,
+  orderBy
+} from './../firebase-config';
 
 
 export default function LibraryScreen() {
 
   const [libraryList, setLibraryList] = useState([]);
   const [selectItemData, setSelectItemData] = useState(null);
-  const [inputFocusVisible, setInputFocusVisible] = useState(false);
-  const [currentPageNum, setCurrentPageNum] = useState(1);
-  const [totalPageNum, setTotalPageNum] = useState(0);
-  const [pageNumbers, setPageNumbers] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [isUserCreateForm, setIsUserCreateForm] = useState(false);
+
   const modalContent = useRef(null);
   useOutsideAlerter(modalContent);
 
@@ -34,21 +44,20 @@ export default function LibraryScreen() {
       };
     }, [ref]);
   }
+
   useEffect(() => {
     const storedArray = JSON.parse(localStorage.getItem('promptFormList'));
     if (storedArray) {
-      setLibraryList(storedArray);
+      setIsUserCreateForm(true)
     }
   }, []);
-
-
 
   const copyHTML = (data) => {
     const el = document.createElement('textarea');
 
     el.value = data;
     el.value = el.value.split("<body>").join("<body> <!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır -->")
-    el.value = el.value.split("</body>").join("<!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır --> </body>")
+    el.value = el.value.split("</body>").join("<!-- https://linkedin.com/in/abdullahturkmen --> </body>")
     document.body.appendChild(el);
     el.select();
     document.execCommand('copy');
@@ -56,37 +65,92 @@ export default function LibraryScreen() {
     toast.success("Kodlar kopyalandı!")
   };
 
-  useEffect(() => {
-    setTotalPageNum(Math.ceil(libraryList.length / 12))
-  }, [libraryList])
+
 
   useEffect(() => {
-    const pageArr = Array.from({ length: totalPageNum }, (_, index) => index + 1);
-    setPageNumbers(pageArr)
-  }, [totalPageNum])
+    getForms()
+  }, [])
 
 
+  async function getForms() {
+    setIsLoading(true);
 
-  const prevPage = () => {
-    setCurrentPageNum(currentPageNum - 1)
+    var limitSize = 24
+    var whereDate = Date()
+
+    if (libraryList.length > 0) {
+      limitSize = 12
+      whereDate = libraryList[libraryList.length - 1].createDate
+    }
+
+    const formsCol = collection(db, "forms");
+    const filter = query(formsCol, orderBy('createDate', 'desc'), where("createDate", "<", whereDate), limit(limitSize));
+    const querySnapshot = await getDocs(filter);
+    const formList = querySnapshot.docs.map(doc => doc.data());
+    setLibraryList(current => [...current, ...formList])
+
+    // const storedArray = JSON.parse(localStorage.getItem('firebaseFormList'));
+    // if (storedArray) {
+    //   console.log("storedArray length : ", storedArray.length)
+    //   setLibraryList(current => [...current,...storedArray]);
+    // }
+    // else{
+    //   const formsCol = collection(db, 'forms');
+    //   const formSnapshot = await getDocs(formsCol);
+    //   const formList = formSnapshot.docs.map(doc => doc.data());
+    //   setLibraryList(formList)
+    //   localStorage.setItem("firebaseFormList", JSON.stringify(formList));
+    //   console.log("list : ", formList)
+    // }
+
+    setIsLoading(false);
   }
 
-  const nextPage = () => {
-    setCurrentPageNum(currentPageNum + 1)
-  }
 
-  const onPageChange = (num) => {
-    setCurrentPageNum(num)
-  }
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isLoading) {
+      return;
+    }
+    getForms()
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isLoading]);
 
 
   return (
     <>
+
+
+      {!isUserCreateForm && (<>
+        <div className="flex flex-col w-full flex-wrap content-center justify-center p-5 ">
+          <div className=" mx-auto w-full max-w-[1400px] ">
+            <div className="flex flex-col md:flex-row justify-between py-6 px-4 bg-teal-100 rounded-lg  space-y-2">
+              <div className="flex flex-col md:flex-row space-x-0 md:space-x-4 space-y-1">
+                <img src="https://abdullahturkmen.com/abdullah-turkmen-avatar.jpg" className="rounded-full h-14 w-14" alt="" />
+                <div className="flex flex-col space-y-1">
+                  <span className="font-bold h3">Henüz Bir Form Oluşturmadın, Neden?</span>
+                  <span className="text-sm">Muhteşem bir form oluştur ve web sitene ekle 🔥</span>
+                </div>
+              </div>
+              <div className="flex-none py-2 text-stone-600 text-xs md:text-sm">
+                <Link href="/CreateFormScreen"
+                  className="bg-white hover:bg-teal-600 text-teal-600 hover:text-white rounded-lg shadow hover:shadow-lg py-2 px-4 border border-teal-600 hover:border-transparent">
+                  Hemen Oluştur</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </>)}
+
+
       <div className="flex flex-col w-full flex-wrap content-center justify-center p-5 ">
         <div className="w-full max-w-[1400px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
 
 
-          {libraryList?.slice(0).reverse().map((response, index) => (
+          {libraryList?.map((response, index) => (
             <div className="w-auto bg-white p-3 shadow-lg hover:shadow-xl rounded-xl cursor-pointer" onClick={() => setSelectItemData(response)} key={index}>
               <div className="w-full relative overflow-hidden aspect-video rounded-lg" >
                 <iframe
@@ -104,7 +168,9 @@ export default function LibraryScreen() {
                   frameBorder="0" loading="lazy" scrolling="no" srcDoc={response.data} tabIndex="-1"
                   title={response.prompt}></iframe>
               </div>
-              <div className="text-gray-500 text-sm pt-2 truncate">{response.prompt}</div>
+              <div className="text-gray-500 text-sm pt-2 truncate">{response.prompt}
+                <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY HH:mm')}</div>
+              </div>
               <ul className="mt-3 flex flex-wrap text-sm hidden">
                 <li className="mr-auto">
                   <a href="#" className="flex items-center text-gray-400 hover:text-gray-600">
@@ -142,66 +208,35 @@ export default function LibraryScreen() {
             </div>
           ))}
 
-
         </div>
         <div className="mb-14"></div>
-        {totalPageNum > 1 && (<>
 
-          <div className="max-w-2xl mx-auto">
-            <nav>
-              <ul className="inline-flex -space-x-px">
-
-                {currentPageNum > 1 && (<>
-                  <li>
-                    <a onClick={prevPage}
-                      className="cursor-pointer bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 ml-0 rounded-l-lg leading-tight py-2 px-3">Önceki</a>
-                  </li>
-                </>)}
-                {pageNumbers.map(number => (
-                  <li
-                    key={number}
-                    onClick={() => onPageChange(number)}
-                  >
-                    <a
-                      className={`cursor-pointer bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 leading-tight py-2 px-3 ${number === currentPageNum ? ' dark:bg-gray-700 dark:text-white' : ''}`}>{number}</a>
-
-                  </li>
-                ))}
-                {currentPageNum < totalPageNum && (<>
-                  <li>
-                    <a onClick={nextPage}
-                      className="cursor-pointer bg-white border border-gray-300 text-gray-500 hover:bg-gray-100 hover:text-gray-700 rounded-r-lg leading-tight py-2 px-3">Sonraki</a>
-                  </li>
-                </>)}
-
-              </ul>
-            </nav>
-
-
+        {isLoading && (
+          <div className="flex justify-center">
+            <svg aria-hidden="true" role="status" className="inline w-[20%] max-w-[200px] text-teal-600 animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
+              <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
+            </svg>
           </div>
-        </>)}
+        )}
 
       </div>
 
-
-
-
-
       {selectItemData && (
-
-
         <div className="fixed top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[100%] max-h-full flex items-center justify-center bg-[#0000007d]">
           <div className="relative w-full max-w-4xl max-h-full">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700" ref={modalContent}>
               <div className="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                 <h3 className="text-xl font-medium text-gray-900 dark:text-white">
                   {selectItemData.prompt}
+                  <div className="text-gray-300 text-[11px]">{moment(selectItemData.createDate).format('DD/MM/YYYY HH:mm')} tarihinde oluşturuldu</div>
                 </h3>
+
                 <button onClick={() => setSelectItemData(false)} type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                   <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                   </svg>
-                  <span className="sr-only">Close modal</span>
+                  <span className="sr-only">Kapat</span>
                 </button>
               </div>
               <div className="p-6 w-full relative overflow-hidden aspect-video"

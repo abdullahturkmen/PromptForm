@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { Inter } from 'next/font/google'
 import Header from './components/header'
-import Author from './components/autthor';
+import Author from './components/author';
 
 const inter = Inter({ subsets: ['latin'] })
 

@@ -13,7 +13,7 @@ export default function HomeScreen() {
               <h1 className="text-3xl md:text-5xl p-2 text-teal-600 tracking-loose pl-0">PromptForm</h1>
               <h2 className="text-3xl md:text-5xl leading-relaxed md:leading-snug mb-2">Form Oluşturmak Çok Pratik
               </h2>
-              <p className="text-sm md:text-base text-black-50 mb-4">Birkaç kelime ile aklınızdaki tasarıma en uygun formu oluşturmak için;</p>
+              <p className="text-sm md:text-base text-black-50 mb-4">Birkaç kelime ile aklındaki tasarıma en uygun formu oluşturmak için;</p>
               <Link href="/CreateFormScreen"
                 className="bg-transparent hover:bg-teal-600 text-teal-600 hover:text-white rounded-lg shadow hover:shadow-lg py-2 px-4 border border-teal-600 hover:border-transparent">
                 Hemen Başla</Link>
@@ -22,23 +22,17 @@ export default function HomeScreen() {
               <div className="stack">
                 <div className="content card">
 
-
-
-
                   <div className="form-container">
                     <form>
-                      <label for="name">Kullanıcı Adı:</label>
+                      <label htmlFor="name">Kullanıcı Adı:</label>
                       <input type="text" id="name" name="name" placeholder="Kullanıcı Adı Girin" readOnly autoComplete="off" />
 
-                      <label for="email">Parola:</label>
+                      <label htmlFor="email">Parola:</label>
                       <input type="password" id="email" name="email" placeholder="************" readOnly autoComplete="off" />
 
-                      <input value="Gönder" className="submit-btn" disabled/>
+                      <input value="Gönder" className="submit-btn" disabled />
                     </form>
                   </div>
-
-
-
 
                 </div>
                 <div className="padding card"></div>

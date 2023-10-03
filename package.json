@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "firebase": "^10.4.0",
     "moment": "^2.29.4",
     "next": "latest",
     "openai": "^4.10.0",
