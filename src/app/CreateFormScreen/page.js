@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from "react"
 import moment from "moment";
-import FireworksConfetti from "../components/confetti";
+import Confetti from 'react-dom-confetti';
 import { useRouter } from "next/navigation";
 import { toast } from 'react-toastify';
 import {
@@ -140,6 +140,21 @@ export default function CreateFormScreen() {
       { ...data, orderNum: parseInt(formID) })
   }
 
+
+  const confettiConfig = {
+    angle: '280',
+    spread: '360',
+    startVelocity: 30,
+    elementCount: 170,
+    dragFriction: 0.04,
+    duration: 2000,
+    stagger: 3,
+    width: '12px',
+    height: '14px',
+    perspective: '500px',
+    colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
+  };
+
   return (
     <>
       {responseList?.map((response, index) => (
@@ -148,9 +163,7 @@ export default function CreateFormScreen() {
             <div className="truncate">{response.prompt}
               <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY HH:mm')}</div>
             </div>
-
           </div>
-
 
           <div className="w-full relative overflow-hidden aspect-video rounded-br-lg rounded-bl-lg" >
             <button title="Kodları Kopyala" className="z-10 absolute top-2 right-2 bg-gray-100 hover:bg-gray-200 text-gray-500 p-1 rounded-lg focus:ring focus:ring-violet-300 focus:shadow-md" onClick={(e) => copyHTML(index)}>
@@ -177,7 +190,9 @@ export default function CreateFormScreen() {
       ))}
       <div className="mb-28"></div>
 
-
+      <div className="flex justify-center w-100 absolute left-[50%] h-0">
+        <Confetti active={confettiVisible} config={confettiConfig} className="z-50 fixed top-3 left-[50%] h-0" />
+      </div>
 
       <div className="w-full fixed bottom-0 left-0 z-50">
         <div onFocus={() => setInputFocusVisible(false)} className=" bg-white  mx-auto shadow-md rounded-lg mb-0 md:mb-4 border w-[100%] md:w-11/12 lg:w-6/12 max-w-[600px]">
@@ -216,11 +231,6 @@ export default function CreateFormScreen() {
           </div>
         </div>
       </div>
-
-      {confettiVisible && (
-        <FireworksConfetti />
-      )}
-
     </>
   )
 }
