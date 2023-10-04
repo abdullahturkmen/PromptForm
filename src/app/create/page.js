@@ -31,6 +31,7 @@ export default function create() {
   const [isMicScreenVisible, setIsMicScreenVisible] = useState(false);
   const inputContent = useRef(null);
   const [recognition, setRecognition] = useState();
+  const [isTabActive, setIsTabActive] = useState(true);
 
   useOutsideAlerter(inputContent);
 
@@ -159,10 +160,6 @@ export default function create() {
     colors: ['#a864fd', '#29cdff', '#78ff44', '#ff718d', '#fdff6a'],
   };
 
-  useEffect(() => {
-    isSpeechToTextAvailable()
-  }, [])
-
   const isSpeechToTextAvailable = () => {
     if ('webkitSpeechRecognition' in window) {
       var recognitionData = new webkitSpeechRecognition();
@@ -208,6 +205,30 @@ export default function create() {
     }
     setIsMicScreenVisible(false)
   }
+
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsTabActive(!document.hidden);
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  useEffect(() => {
+    if(isTabActive){
+      isSpeechToTextAvailable()
+    }
+    else{
+      setRecognition(null)
+      stopMic()
+    }
+  }, [isTabActive])
+  
 
   return (
     <>
@@ -300,9 +321,10 @@ export default function create() {
         <div className="fixed top-0 left-0 w-full h-full z-50 bg-[#00000090]">
           <div className="flex flex-col h-full w-full items-center">
             <div className="relative h-[80vh] w-full">
-              <div class="mic">
-                <i class="mic-icon"></i>
-                <div class="mic-shadow"></div>
+              <div className="mic">
+                <i className="mic-icon"></i>
+                <div className="mic-shadow"></div>
+
               </div>
             </div>
             <div className="py-8 text-white text-xl">{promptText}</div>
