@@ -12,10 +12,10 @@ import {
   limit,
   where,
   orderBy
-} from './../firebase-config';
+} from '../firebase-config';
 
 
-export default function LibraryScreen() {
+export default function library() {
 
   const [libraryList, setLibraryList] = useState([]);
   const [selectItemData, setSelectItemData] = useState(null);
@@ -136,7 +136,7 @@ export default function LibraryScreen() {
                 </div>
               </div>
               <div className="flex-none py-2 text-stone-600 text-xs md:text-sm">
-                <Link href="/CreateFormScreen"
+                <Link href="/create"
                   className="bg-white hover:bg-teal-600 text-teal-600 hover:text-white rounded-lg shadow hover:shadow-lg py-2 px-4 border border-teal-600 hover:border-transparent">
                   Hemen Oluştur</Link>
               </div>

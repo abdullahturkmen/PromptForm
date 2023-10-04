@@ -10,11 +10,11 @@ import {
   collection,
   setDoc,
   doc
-} from './../firebase-config';
+} from '../firebase-config';
 
 
 const OpenAI = require('openai');
-export default function CreateFormScreen() {
+export default function create() {
   const router = useRouter();
 
   const openai = new OpenAI({
@@ -96,7 +96,7 @@ export default function CreateFormScreen() {
     setButtonLoading(false)
     setConfettiVisible(true)
     setPromptText('')
-    return router.push("/CreateFormScreen");
+    return router.push("/create");
   }
 
   const removeText = (response) => {

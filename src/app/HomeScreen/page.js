@@ -14,7 +14,7 @@ export default function HomeScreen() {
               <h2 className="text-3xl md:text-5xl leading-relaxed md:leading-snug mb-2">Form Oluşturmak Çok Pratik
               </h2>
               <p className="text-sm md:text-base text-black-50 mb-4">Birkaç kelime ile aklındaki tasarıma en uygun formu oluşturmak için;</p>
-              <Link href="/CreateFormScreen"
+              <Link href="/create"
                 className="bg-transparent hover:bg-teal-600 text-teal-600 hover:text-white rounded-lg shadow hover:shadow-lg py-2 px-4 border border-teal-600 hover:border-transparent">
                 Hemen Başla</Link>
             </div>

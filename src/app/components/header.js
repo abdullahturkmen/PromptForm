@@ -20,14 +20,14 @@ export default function Header() {
 							Anasayfa
 						</Link>
 						<Link
-							href="/LibraryScreen"
-							className={`mx-2 px-2 py-1 rounded-lg font-medium hover:text-gray-900 ${pathname == "/LibraryScreen" ? "bg-gray-100" : ""}`}
+							href="/library"
+							className={`mx-2 px-2 py-1 rounded-lg font-medium hover:text-gray-900 ${pathname == "/library" ? "bg-gray-100" : ""}`}
 						>
 							Kütüphane
 						</Link>
 					</nav>
 					<div className="items-center h-full">
-						<Link href="/CreateFormScreen"
+						<Link href="/create"
 							className="px-4 py-2 text-xs font-bold text-white uppercase transition-all duration-150 bg-teal-500 rounded-lg shadow outline-none active:bg-teal-600 hover:shadow-md focus:outline-none ease">
 							Oluştur
 						</Link>
