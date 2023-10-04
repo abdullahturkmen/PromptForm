@@ -171,7 +171,7 @@ export default function library() {
               <div className="text-gray-500 text-sm pt-2 truncate">{response.prompt}
                 <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY HH:mm')}</div>
               </div>
-              <ul className="mt-3 flex flex-wrap text-sm hidden">
+              {/* <ul className="mt-3 flex flex-wrap text-sm hidden">
                 <li className="mr-auto">
                   <a href="#" className="flex items-center text-gray-400 hover:text-gray-600">
                     <svg className="mr-0.5" style={{ width: '18px', height: '18px' }} viewBox="0 0 24 24">
@@ -204,7 +204,7 @@ export default function library() {
                     3
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           ))}
 

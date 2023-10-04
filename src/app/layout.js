@@ -1,4 +1,5 @@
 import './globals.css'
+import './mic.css'
 import './stack.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
