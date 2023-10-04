@@ -320,7 +320,7 @@ export default function create() {
       {isMicScreenVisible && (<>
         <div className="fixed top-0 left-0 w-full h-full z-50 bg-[#00000090]">
           <div className="flex flex-col h-full w-full items-center">
-            <div className="relative h-[80vh] w-full">
+            <div className="relative h-[80vh] w-full scale-50 md:scale-75">
               <div className="mic">
                 <i className="mic-icon"></i>
                 <div className="mic-shadow"></div>
