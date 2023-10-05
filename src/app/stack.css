@@ -82,16 +82,22 @@
   transition: border-color 1s var(--easeInOutCirc) 0s,
     background-color 1s var(--easeInOutCirc) 0s,
     color 1s var(--easeInOutCirc) 0s, transform 2s var(--easeInOutCirc) 0s;
+
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 .stack:hover .card.padding,
 .stack:active .card.padding {
   transition-delay: 0.1s;
+
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 .stack:hover .card.border,
 .stack:active .card.border {
   transition-delay: 0.2s;
+
+  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 .stack:hover .card.background,
@@ -99,6 +105,8 @@
   background: white;
   transition: background-color 2s var(--easeInOutCirc) 0.3s,
     transform 2s var(--easeInOutCirc) 0.2s;
+
+    box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.02), 0 6.7px 5.3px rgba(0, 0, 0, 0.028), 0 12.5px 10px rgba(0, 0, 0, 0.035), 0 22.3px 17.9px rgba(0, 0, 0, 0.042), 0 41.8px 33.4px rgba(0, 0, 0, 0.05), 0 100px 80px rgba(0, 0, 0, 0.07);
 }
 
 .stack:hover .card.box-shadow,
@@ -174,13 +182,14 @@
 
 .card.content {
   z-index: 5;
-  transition: border-color 4s ease, background-color 5s ease 2s,
-    color 4s ease 0s, transform 4s ease 0s;
   padding: 5vmin;
   line-height: 1.5;
   background: rgb(255, 255, 254);
   border: 5px solid hotpink;
   color: black;
+  box-shadow: 0;
+  transition: box-shadow 2s,border-color 4s ease, background-color 5s ease 2s,
+  color 4s ease 0s, transform 4s ease 0s;
 }
 
 .card.content::after {
@@ -198,6 +207,9 @@
   background: transparent;
   z-index: 4;
   transition-delay: 0.1s;
+  box-shadow: 0;
+  transition: box-shadow 2s,border-color 4s ease, background-color 5s ease 2s,
+  color 4s ease 0s, transform 4s ease 0s;
 }
 
 .card.padding::after {
@@ -248,6 +260,9 @@
   z-index: 3;
   background: transparent;
   transition-delay: 0.2s;
+  box-shadow: 0;
+  transition: box-shadow 2s,border-color 4s ease, background-color 5s ease 2s,
+  color 4s ease 0s, transform 4s ease 0s;
 }
 
 .card.border::after {
@@ -290,7 +305,8 @@
 
 .card.background {
   z-index: 2;
-  transition: background-color 4s ease 0.3s, transform 4s ease 0.3s;
+  box-shadow: 0;
+  transition: box-shadow 2s, background-color 4s ease 0.3s, transform 4s ease 0.3s;
 }
 
 .card.background::after {
