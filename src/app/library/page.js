@@ -75,12 +75,12 @@ export default function library() {
   async function getForms() {
     setIsLoading(true);
 
-    var limitSize = 3
+    var limitSize = 24
     var whereDate = Date.now()
     var orderArrow = ">"
 
     if (libraryList?.length > 0) {
-      limitSize = 2
+      limitSize = 12
       whereDate = libraryList[libraryList.length - 1].orderNum
       orderArrow = "<"
     }
