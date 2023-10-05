@@ -104,17 +104,15 @@ export default function library() {
     setIsLoading(true);
 
     var limitSize = 24
-    var whereDate = Date.now()
-    var orderArrow = ">"
+    var whereDate = parseInt(`${Date.now()}99`)
 
     if (libraryList?.length > 0) {
       limitSize = 12
       whereDate = libraryList[libraryList.length - 1].orderNum
-      orderArrow = "<"
     }
 
     const formsCol = collection(db, "forms");
-    const filter = query(formsCol, orderBy('orderNum', 'desc'), where("orderNum", orderArrow, whereDate), limit(limitSize));
+    const filter = query(formsCol, orderBy('orderNum', 'desc'), where("orderNum", "<", whereDate), limit(limitSize));
     const querySnapshot = await getDocs(filter);
     const formList = querySnapshot.docs.map(doc => doc.data());
     setLibraryList(current => [...current, ...formList])
