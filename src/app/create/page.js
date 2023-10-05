@@ -142,7 +142,7 @@ export default function create() {
         "forms",
         formID
       ),
-      { ...data, orderNum: parseInt(formID), orderNum:formID })
+      { ...data, orderNum: parseInt(formID) })
   }
 
 

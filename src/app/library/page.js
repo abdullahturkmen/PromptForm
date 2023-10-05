@@ -67,8 +67,6 @@ export default function library() {
 
   const downloadHTML = (data,prompt) => {
 
-    console.log("data : ", data)
-
     var htmlContent
     if (Array.isArray(data)) {
       htmlContent = data[0]
