@@ -65,6 +65,36 @@ export default function library() {
     toast.success("Kodlar kopyalandı!")
   };
 
+  const downloadHTML = (data,prompt) => {
+
+    console.log("data : ", data)
+
+    var htmlContent
+    if (Array.isArray(data)) {
+      htmlContent = data[0]
+    } else {
+      htmlContent = data
+    }
+
+    htmlContent = htmlContent.split("<body>").join("<body> <!-- Bu Form https://prompt-form.vercel.app Sitesi Aracılığıyla Yapılmıştır -->")
+    htmlContent = htmlContent.split("</body>").join("<!-- https://linkedin.com/in/abdullahturkmen --> </body>")
+
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${promptTextConvert(prompt)}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    toast.success("Dosya İndirildi!")
+  }
+
+  function promptTextConvert(text) {
+    return text
+        .toLowerCase()
+        .replace(/[^\w ]+/g,'')
+        .replace(/ +/g,'-');
+}
 
 
   useEffect(() => {
@@ -86,7 +116,7 @@ export default function library() {
     }
 
     const formsCol = collection(db, "forms");
-    const filter = query(formsCol,  orderBy('orderNum', 'desc'),where("orderNum",orderArrow, whereDate), limit(limitSize));
+    const filter = query(formsCol, orderBy('orderNum', 'desc'), where("orderNum", orderArrow, whereDate), limit(limitSize));
     const querySnapshot = await getDocs(filter);
     const formList = querySnapshot.docs.map(doc => doc.data());
     setLibraryList(current => [...current, ...formList])
@@ -173,8 +203,8 @@ export default function library() {
               <div className="text-gray-500 text-sm pt-2 truncate">{response.prompt}
                 <div className="text-gray-300 text-[11px]">{moment(response.createDate).format('DD/MM/YYYY HH:mm')}</div>
               </div>
-              {/* <ul className="mt-3 flex flex-wrap text-sm hidden">
-                <li className="mr-auto">
+              <ul className="mt-3 flex flex-wrap text-sm ">
+                {/* <li className="mr-auto">
                   <a href="#" className="flex items-center text-gray-400 hover:text-gray-600">
                     <svg className="mr-0.5" style={{ width: '18px', height: '18px' }} viewBox="0 0 24 24">
                       <path fill="currentColor" d="M21,12L14,5V9C7,10 4,15 3,20C5.5,16.5 9,14.9 14,14.9V19L21,12Z" />
@@ -205,8 +235,13 @@ export default function library() {
                     </svg>
                     3
                   </a>
+                </li> */}
+                <li className="ml-auto">
+                  <a onClick={() => downloadHTML(response.data, response.prompt)} className="flex items-center text-gray-400 hover:text-teal-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 256 256"><path fill="currentColor" d="M82.34 117.66A8 8 0 0 1 88 104h32V40a8 8 0 0 1 16 0v64h32a8 8 0 0 1 5.66 13.66l-40 40a8 8 0 0 1-11.32 0ZM216 144a8 8 0 0 0-8 8v56H48v-56a8 8 0 0 0-16 0v56a16 16 0 0 0 16 16h160a16 16 0 0 0 16-16v-56a8 8 0 0 0-8-8Z" /></svg>
+                  </a>
                 </li>
-              </ul> */}
+              </ul>
             </div>
           ))}
 
