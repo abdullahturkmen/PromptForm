@@ -75,16 +75,18 @@ export default function library() {
   async function getForms() {
     setIsLoading(true);
 
-    var limitSize = 24
-    var whereDate = Date()
+    var limitSize = 3
+    var whereDate = Date.now()
+    var orderArrow = ">"
 
-    if (libraryList.length > 0) {
-      limitSize = 12
-      whereDate = libraryList[libraryList.length - 1].createDate
+    if (libraryList?.length > 0) {
+      limitSize = 2
+      whereDate = libraryList[libraryList.length - 1].orderNum
+      orderArrow = "<"
     }
 
     const formsCol = collection(db, "forms");
-    const filter = query(formsCol, orderBy('createDate', 'desc'), where("createDate", "<", whereDate), limit(limitSize));
+    const filter = query(formsCol,  orderBy('orderNum', 'desc'),where("orderNum",orderArrow, whereDate), limit(limitSize));
     const querySnapshot = await getDocs(filter);
     const formList = querySnapshot.docs.map(doc => doc.data());
     setLibraryList(current => [...current, ...formList])

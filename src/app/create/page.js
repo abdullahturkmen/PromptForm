@@ -97,7 +97,7 @@ export default function create() {
     localStorage.setItem("promptFormList", JSON.stringify(storedArray));
 
     setResponseList(current => [...current, newData])
-    setForm(newData)
+    addFormToFirebase(newData)
 
     setButtonLoading(false)
     setConfettiVisible(true)
@@ -131,7 +131,7 @@ export default function create() {
   };
 
 
-  async function setForm(data) {
+  async function addFormToFirebase(data) {
     var formID = `${new Date().getTime()}${Math.floor(
       Math.random() * Math.pow(10, 2),
     )}`;
@@ -142,7 +142,7 @@ export default function create() {
         "forms",
         formID
       ),
-      { ...data, orderNum: parseInt(formID) })
+      { ...data, orderNum: parseInt(formID), orderNum:formID })
   }
 
 
